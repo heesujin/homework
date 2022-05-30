@@ -1,16 +1,27 @@
 import React from "react";
 import styled from "styled-components";
-import { Route, useHistory } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { createWord } from "./redux/modules/word";
+import { Link, Route, useHistory } from "react-router-dom";
+import { addWordFB, createWord } from "./redux/modules/word";
+import { db } from "./firebase";
+import { useDispatch, useSelector } from "react-redux";
+// import {addWordFB} from "./redux/modules/word";
+
 function Add(props) {
   const my_list = React.useRef([]);
   const dispatch = useDispatch();
-  const addWord = (v, index) => {
+  const history = useHistory();
+
+  const addWord = () => {
     const myList = my_list.current;
 
+    console.log({
+      word: myList[0].value,
+      explanation: myList[1].value,
+      ex: myList[2].value,
+    });
+
     dispatch(
-      createWord({
+      addWordFB({
         word: myList[0].value,
         explanation: myList[1].value,
         ex: myList[2].value,
@@ -32,8 +43,9 @@ function Add(props) {
         <Stitle>예시</Stitle>
         <CExplanation type="text" ref={(el) => (my_list.current[2] = el)} />
       </Word>
-      ㅃㅈㄷㅂㅈㄷ
-      <Btn onClick={addWord}>추가하기</Btn>
+      <Link to="/">
+        <Btn onClick={addWord}>추가하기</Btn>
+      </Link>
     </All>
   );
 }
@@ -84,12 +96,14 @@ const Words = styled.div`
 
 const Btn = styled.button`
   height: 40px;
-  width: 330px;
+  width: 320px;
   margin: auto;
+  margin-left: 15px;
   margin-bottom: 20px;
   margin-top: 30px;
   background-color: #fade7d;
   border: 0;
+  border-radius: 10px;
 `;
 
 export default Add;

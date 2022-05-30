@@ -3,6 +3,10 @@ import Main from "./Main";
 import styled from "styled-components";
 import Add from "./Add";
 import { Route, Switch } from "react-router-dom";
+import { db } from "./firebase";
+import { useDispatch, useSelector } from "react-redux";
+import { createBucket, loadWordFB, addBucketFB } from "./redux/modules/word";
+import { collection, getDoc, getDocs, addDoc } from "firebase/firestore";
 
 function App() {
   const [list, setList] = React.useState([
@@ -22,6 +26,25 @@ function App() {
       ex: "희수 화이팅",
     },
   ]);
+  const dispatch = useDispatch();
+
+  // React.useEffect(async () => {
+  //   const query = await getDocs(collection(db, "words"));
+  //   console.log(query);
+  //   query.forEach((doc) => {
+  //     console.log(doc.id, doc.data());
+  //   });
+  // }, []);
+
+  React.useEffect(() => {
+    dispatch(loadWordFB());
+  }, []);
+
+  // const docRef = await addDoc(collection(db, 'bucket'), {
+  //      completed: false,
+  //      text: "new"
+  //    })
+
   return (
     <Container className="App">
       <Route path="/" exact>
@@ -42,7 +65,7 @@ const Container = styled.div`
   /* background-color: white; */
   height: 60vw;
   overflow-y: auto;
-  max-height: 60vw;
+  /* max-height: 60vw; */
   &::-webkit-scrollbar {
     width: 8px;
     height: 8px;

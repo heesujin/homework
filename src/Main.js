@@ -28,7 +28,7 @@ function Main(props) {
 
       <Add
         onClick={() => {
-          history.push("/add/");
+          history.push("/add");
         }}
       >
         +
@@ -41,26 +41,29 @@ const All = styled.div`
   display: flex;
   /* align-items: center; */
   flex-direction: column;
-  /* margin-left: 10px; */
+  margin-left: 10px;
   /* border: 1px solid white;
   background-color: white; */
   height: 60vw;
   position: relative;
 `;
 
+// const Btnback = styled.div`
+//   background-color: transparent;
+// `;
+
 const Add = styled.div`
   background-color: #fade7d;
   width: 70px;
   height: 70px;
   text-align: center;
-  right: 0;
-  bottom: 0;
+  right: 10px;
+  top: 10px;
   line-height: 53px;
   border-radius: 50px;
   font-size: 70px;
   color: white;
-
-  position: absolute;
+  position: fixed;
 `;
 
 const Stitle = styled.p`
@@ -86,9 +89,10 @@ const Title = styled.h2`
 const Word = styled.div`
   border: 1px solid #eee;
   background-color: white;
-  margin: 10px;
+  margin: 8px 8px 0px 2px;
   margin-top: 8px;
   padding: 8px;
+  border-radius: 10px;
 `;
 
 export default Main;
