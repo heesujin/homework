@@ -32,6 +32,7 @@ function Add(props) {
         <Stitle>예시</Stitle>
         <CExplanation type="text" ref={(el) => (my_list.current[2] = el)} />
       </Word>
+      ㅃㅈㄷㅂㅈㄷ
       <Btn onClick={addWord}>추가하기</Btn>
     </All>
   );
