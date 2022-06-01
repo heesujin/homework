@@ -2,6 +2,7 @@ import React from "react";
 import Main from "./Main";
 import styled from "styled-components";
 import Add from "./Add";
+import Modify from "./Modify";
 import { Route, Switch } from "react-router-dom";
 import { db } from "./firebase";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,23 +10,6 @@ import { createBucket, loadWordFB, addBucketFB } from "./redux/modules/word";
 import { collection, getDoc, getDocs, addDoc } from "firebase/firestore";
 
 function App() {
-  const [list, setList] = React.useState([
-    {
-      word: "ㅎ1ㅎ1",
-      explanation: "히히를 변형한 단어. 'ㅣ'를 숫자1로 쓴것",
-      ex: "저 친구가 초콜릿을 줬어 ㅎ1ㅎ1",
-    },
-    {
-      word: "지니",
-      explanation: "알라딘에 램프를 문지르면 나오는 파란 괴물",
-      ex: "지니야 소원을 들어줘",
-    },
-    {
-      word: "희수",
-      explanation: "26살 게으름뱅이",
-      ex: "희수 화이팅",
-    },
-  ]);
   const dispatch = useDispatch();
 
   // React.useEffect(async () => {
@@ -48,10 +32,13 @@ function App() {
   return (
     <Container className="App">
       <Route path="/" exact>
-        <Main list={list}></Main>
+        <Main></Main>
       </Route>
       <Route path="/add" exact>
         <Add></Add>
+      </Route>
+      <Route path="/modify/:index" exact>
+        <Modify />
       </Route>
     </Container>
   );
@@ -63,9 +50,10 @@ const Container = styled.div`
   margin: 30px auto;
   background-color: #b4dce1;
   /* background-color: white; */
-  height: 60vw;
+  height: 60vh;
+  /* vw => viewport width => 화면의 좌우 너비 대비 퍼센트 */
   overflow-y: auto;
-  /* max-height: 60vw; */
+  max-height: 60vh;
   &::-webkit-scrollbar {
     width: 8px;
     height: 8px;

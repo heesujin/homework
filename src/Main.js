@@ -1,21 +1,52 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import App from "./App";
 import { Route, useHistory } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+
+import { deleteWordFB } from "./redux/modules/word";
 
 function Main(props) {
+  const params = useParams();
+  const word_index = params.index;
   const history = useHistory();
-  console.log(props.list);
-  const data = useSelector((state) => state.word.list);
-  console.log(data);
+  const dispatch = useDispatch();
+  const word_list = useSelector((state) => state.word.list);
+
+  console.log(useSelector(state)=> state.word.list )
+
+  // useEffect(() => {
+  //   console.log(word_list);
+  // }, []);
+
   return (
     <All>
       <Title>MY DICTIONARY</Title>
 
-      {data.map((value, index) => {
+      {word_list.map((value, index) => {
+        // console.log(value.id);
         return (
           <Word key={index}>
+            <Btns>
+              <Btn
+                onClick={() => {
+                  history.push("/modify/" + value.id);
+                }}
+              >
+                📑
+              </Btn>
+            </Btns>
+            <Btns>
+              <Btnn
+                onClick={() => {
+                  dispatch(deleteWordFB(value.id));
+                }}
+              >
+                🗑️
+              </Btnn>
+            </Btns>
+
             <Stitle>단어</Stitle>
             <Explanation>{value.word}</Explanation>
             <Stitle>설명</Stitle>
@@ -44,13 +75,44 @@ const All = styled.div`
   margin-left: 10px;
   /* border: 1px solid white;
   background-color: white; */
-  height: 60vw;
+
+  position: relative;
+  /* height: 60vw; */
+  /* overflow-y: auto; */
+  /* max-height: 60vw; */
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.4);
+  }
+  &::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 6px;
+  }
   position: relative;
 `;
 
 // const Btnback = styled.div`
 //   background-color: transparent;
 // `;
+
+const Btns = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+`;
+
+const Btnn = styled.div`
+  margin-top: -26px;
+  margin-right: 10px;
+  font-size: 20px;
+`;
+
+const Btn = styled.div`
+  margin-right: 40px;
+  font-size: 18px;
+`;
 
 const Add = styled.div`
   background-color: #fade7d;
