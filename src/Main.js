@@ -14,8 +14,6 @@ function Main(props) {
   const dispatch = useDispatch();
   const word_list = useSelector((state) => state.word.list);
 
-  console.log(useSelector(state)=> state.word.list )
-
   // useEffect(() => {
   //   console.log(word_list);
   // }, []);
